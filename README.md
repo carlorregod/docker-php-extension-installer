@@ -25,7 +25,7 @@ For example, here some `Dockerfile`s that install the GD and xdebug PHP extensio
 ```Dockerfile
 FROM php:7.2-cli
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+ADD https://github.com/carlorregod/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions gd xdebug
@@ -38,7 +38,7 @@ FROM php:7.2-cli
 
 RUN curl -sSLf \
         -o /usr/local/bin/install-php-extensions \
-        https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+        https://github.com/carlorregod/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions gd xdebug
 ```
@@ -48,7 +48,7 @@ RUN curl -sSLf \
 ```Dockerfile
 FROM php:8.2-cli
 
-RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
+RUN curl -sSL https://github.com/carlorregod/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
       gd \
       gmp \
       exif \
@@ -60,13 +60,13 @@ RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases
 ```Dockerfile
 FROM php:7.2-cli
 
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=carlorregod/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 RUN install-php-extensions gd xdebug
 ```
 Alternative that does not increase the image size with the tool
 ```Dockerfile
-RUN  --mount=type=bind,from=mlocati/php-extension-installer:1.5,source=/usr/bin/install-php-extensions,target=/usr/local/bin/install-php-extensions \
+RUN  --mount=type=bind,from=carlorregod/php-extension-installer:1.5,source=/usr/bin/install-php-extensions,target=/usr/local/bin/install-php-extensions \
       install-php-extensions pcntl
 ```
 
@@ -75,7 +75,7 @@ RUN  --mount=type=bind,from=mlocati/php-extension-installer:1.5,source=/usr/bin/
 > In order to be sure the `COPY` instruction uses the very latest version, you can run:
 >
 > ```sh
-> docker pull mlocati/php-extension-installer
+> docker pull carlorregod/php-extension-installer
 > ```
 
 ### Installing specific versions of an extension
